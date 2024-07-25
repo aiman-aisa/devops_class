@@ -6,7 +6,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                    cd DevopsClassFront
+                    cd /var/jenkins_home/workspace/devops_class_gitlab
                     docker build -t frontend .
                     docker run -d -p 80:80 frontend
                 '''
