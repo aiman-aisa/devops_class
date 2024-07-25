@@ -1,19 +1,30 @@
 pipeline {
-    agent none
+    agent any
     stages {
-        stage('DB') {
+        stage('Build') {
             agent {
-                docker { image 'mysql:latest'}
+                docker { 
+                    image 'docker:cli'
+                    args '--privileged'
+                    }
             }
             steps {
-                sh 'mysql -V'
+                sh 'docker compose --version'
+                sh 'docker compose -f docker-compose.yml up -d'
+                sh 'docker compose ps'
             }
         }
-        stage('Front-end') {
-            agent { dockerfile True }
-
+        stage('Test') {
+            agent {
+                docker { 
+                    image 'docker:cli'
+                    args '--privileged'
+                    }
+            }
             steps {
-                sh 'node --version'
+                sh 'docker compose --version'
+                sh 'docker compose -f docker-compose.yml up -d'
+                sh 'docker compose ps'
             }
         }
     }
