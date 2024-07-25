@@ -5,6 +5,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                sh 'apt install python3 python3-venv -y'
                 sh '''
                     cd /var/jenkins_home/workspace/devops_class_gitlab
                     docker build -t frontend .
